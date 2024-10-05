@@ -109,7 +109,8 @@ const GameController = (() => {
       box.classList.remove("animate");
     }
     currentPlayer = Player1;
-    currentPlayerEl.textContent = currentPlayer.name;
+    currentPlayerEl.textContent =
+      currentPlayer.name + "  (" + currentPlayer.marker + ")";
     statusElement.textContent = "";
     gameStatus = "playing";
   };
@@ -127,7 +128,8 @@ const GameController = (() => {
       player1El.innerHTML = newName2;
     }
 
-    currentPlayerEl.textContent = currentPlayer.name;
+    currentPlayerEl.textContent =
+      currentPlayer.name + ` (${currentPlayer.marker})`;
     updateNameInputs();
   };
 
@@ -138,7 +140,8 @@ const GameController = (() => {
 
   const switchTurn = () => {
     currentPlayer = currentPlayer === Player1 ? Player2 : Player1;
-    currentPlayerEl.textContent = currentPlayer.name;
+    currentPlayerEl.textContent =
+      currentPlayer.name + ` (${currentPlayer.marker})`;
   };
 
   const processMove = (position) => {
