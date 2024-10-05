@@ -5,6 +5,11 @@ const resetButton = document.querySelector(".reset-button");
 let boardboxes = document.querySelectorAll(".box");
 let currentPlayerEl = document.querySelector(".curr-player");
 
+const score0El = document.querySelector("#score-0");
+const score1El = document.querySelector("#score-1");
+const player0El = document.querySelector(".player-0");
+const player1El = document.querySelector(".player-1");
+
 const GameBoard = (function () {
   let board = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
 
@@ -46,9 +51,9 @@ const GameBoard = (function () {
   const winStates = [
     [0, 1, 2],
     [3, 4, 5],
-    [6, 7, 8],
     [0, 4, 8],
     [6, 4, 2],
+    [6, 7, 8],
     [0, 3, 6],
     [2, 5, 8],
     [1, 4, 7],
@@ -60,6 +65,9 @@ const GameBoard = (function () {
         (board[a] === "x" && board[b] === "x" && board[c] === "x") ||
         (board[a] === "o" && board[b] === "o" && board[c] === "o")
       ) {
+        boardboxes[a].classList.add("animate");
+        boardboxes[b].classList.add("animate");
+        boardboxes[c].classList.add("animate");
         return true;
       }
     }
@@ -87,13 +95,19 @@ const GameController = (() => {
   let Player1 = Player("player1", "x");
   let Player2 = Player("player2", "o");
 
-  let winningStreak = 0;
+  let score0 = 0;
+  let score1 = 0;
   // let playerName2 = prompt("Enter your name: ");
+  score0El.innerHTML = score0;
+  score1El.innerHTML = score1;
 
   let currentPlayer = Player1;
   let gameStatus = "playing";
 
   const initGame = () => {
+    for (box of boardboxes) {
+      box.classList.remove("animate");
+    }
     currentPlayer = Player1;
     currentPlayerEl.textContent = currentPlayer.name;
     statusElement.textContent = "";
@@ -106,9 +120,11 @@ const GameController = (() => {
 
     if (newName1) {
       Player1.name = newName1;
+      player0El.innerHTML = newName1;
     }
     if (newName2) {
       Player2.name = newName2;
+      player1El.innerHTML = newName2;
     }
 
     currentPlayerEl.textContent = currentPlayer.name;
@@ -142,11 +158,16 @@ const GameController = (() => {
     if (GameBoard.checkForWin() === true) {
       gameStatus = "win";
       announceResult();
-      winningStreak++;
       statusElement.innerHTML = currentPlayer.name + " Win";
+      if (currentPlayer === Player1) {
+        score0++;
+        score0El.innerHTML = score0;
+      } else {
+        score1++;
+        score1El.innerHTML = score1;
+      }
     } else if (GameBoard.board.every((cell) => cell !== " ")) {
       gameStatus = "draw";
-      winnningStreak--;
       statusElement.textContent = "It's a Draw!";
     }
   };
@@ -189,4 +210,9 @@ for (let i = 0; i < 9; i++) {
 
 updateNameBtn.addEventListener("click", () => {
   GameController.updatePlayerNames();
+});
+
+document.querySelector(".setBtn").addEventListener("click", () => {
+  document.querySelector(".game").classList.remove("hidden");
+  document.querySelector(".name-input").classList.add("hidden");
 });

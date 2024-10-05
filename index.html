@@ -7,11 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   </head>
   <body>
 
     <main>
-    <div>
+    <div class="name-input">
+        <h1>TicTacToe</h1>
       <label>Player1 Name : </label>
       <input type="text" class="p1">
 
@@ -20,9 +24,18 @@
 
       <button class="setBtn">Set</button>
     </div>
-      <h1> <span class="game-status"></span> </h1>
-      <h2 ">Current Player :
+    <div class="game hidden">
+      <h1> <span class="game-status">TicTacToe</span> </h1>
+      <h2 ">Active Player :
       <span class="curr-player">Player1</span></h2>
+        <div class="scores">
+          <div>
+       <span class="player player-0">Player1</span> <span id="score-0">0</span>  
+          </div>
+          <div>
+       <span class="player player-1">Player2</span> <span id="score-1">0</span>
+          </div>
+        </div>
       <div class="game-board">
         <div class="box"></div>
         <div class="box"></div>
@@ -36,7 +49,7 @@
       </div>
 
       <button class="reset-button">Reset</button>
-      <button class="start">Start</button>
+    </div>
     </main>
 
     <script src="./script.js"></script>
